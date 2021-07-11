@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>How does a computer calculate a color gradient?</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+  </head>
+  <body class="is-preload">
+    <!-- Navbar -->
+    <nav id="navbar">
+      <body class="is-preload">
+        <a
+          style="color: #c9c9c9; font-size: 20pt"
+          href="./index.html"
+          class="icon solid free fa-home"
+        >
+          <span class="label">Home</span>
+        </a>
+      </body>
+    </nav>
+
+    <!-- Main -->
+    <div id="main-full">
+      <!-- One -->
+      <section id="one">
+        <header class="major">
+          <h2 class="blog-title">Calculating a Color Gradient</h2>
+          <p>Okay, but <i>how</i> blue is the sky?</p>
+        </header>
+        <p>
+          For a project that I'm working on, I'd like to add a color gradient to
+          align with the stylistic choices of the product. Upon implementation
+          however, I'm having trouble writing a function to generate the
+          Hexadecimal values for colors in the color gradient.
+        </p>
+        <div class="blog-centered">
+          <p>
+            <strong>Goal:</strong> Write a function which, given two Hexadecimal
+            codes can generate a series of interim steps between them
+          </p>
+        </div>
+
+        <!-- <blockquote>
+          Goal: Write a function which, given two Hexadecimal codes can generate
+          a series of interim steps between them
+        </blockquote> -->
+        <p>
+          I realized that fundimentally, I don't understand the way we represent
+          colors digitally. Let's do some research and write this function!
+        </p>
+      </section>
+      <section id="two">
+        <header class="major">
+          <h2>What Does Hexadecimal Represent?</h2>
+        </header>
+
+        <p>
+          It's pretty widely known that computers use a combination of red,
+          green and blue to show color on a screen. If you've ever heard RGB,
+          this is what it refers to. A simple explanation as to why: these are
+          the colors that the human eye can see. Though vastly oversimplifying,
+          it's easiest to imagine that your eye has 3 different types of cells -
+          cone cells - which are responsible for seeing red, green and blue
+          respectively. All colors that we see are then combination of these
+          base three and can be derived from different intensities of red, green
+          and blue, respectively.
+        </p>
+        <blockquote>
+          Note:
+          <a
+            href="https://en.wikipedia.org/wiki/Photoreceptor_cell#:~:text=A%20photoreceptor%20cell%20is%20a,that%20can%20stimulate%20biological%20processes"
+            >"Cones respond to both the wavelength and intensity of light ...
+            Cones cannot detect color by themselves; rather, color
+            vision requires comparison of the signal across different cone
+            types"</a
+          >
+        </blockquote>
+
+        <p>
+          The human eye is where the RGB color system comes from. Monitors use
+          this system to encode color into tiny red, blue and green LEDs. The
+          format that we store this information for each pixel is
+          <code>(R,G,B)</code> where each position is a number from 0-255
+          representing at what intensity/brightness each color will be shown at.
+        </p>
+        <p>
+          As it turns out,
+          <a
+            href="https://en.wikipedia.org/wiki/Hexadecimal#:~:text=Hexadecimal%20numerals%20are%20widely%20used,which%20is%20half%20a%20byte"
+          >
+            Hexadecimal is actually the same thing. </a
+          >The format for Hexadecimal is <code>#RRGGBB</code> where the 0-255
+          values are represented by numbers 0-9 and letters A-F which translate
+          to be a range of <code>0-16</code> when combined. Hexadecimal is a
+          <a href="https://www.bbc.co.uk/bitesize/guides/zp73wmn/revision/1"
+            >base 16 number system </a
+          >, as opposed to our standard base 10 system. Since
+          <code>16*16=256</code> we can see how this is a direct translation,
+          after making room for a 0.
+        </p>
+        <div class="blog-centered">
+          <p>For example: <code>#4FCC79</code> = <code>(79, 204, 121)</code></p>
+          <p>4F = 79, CC = 204, 79 = 121</p>
+        </div>
+        <h4>Denary to Hexadecimal</h4>
+        <table>
+          <tr>
+            <td label>Denary</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
+            <td>14</td>
+            <td>15</td>
+          </tr>
+          <tr>
+            <td label>Hexadecimal</td>
+            <td>0</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
+          </tr>
+        </table>
+      </section>
+      <section id="three">
+        <header class="major">
+          <h2>Visualizing RGB as a 3D Space</h2>
+        </header>
+
+        <p>
+          So, we have red, green and blue on linear scales from 0 to 255. What
+          does this mean? This means that we can represent the colors in
+          three-dimensional space. Don't worry, I'll draw it. But first, let's
+          understand our axis. We have three, Red, Green, and Blue. The sides of
+          our three dimensional space will look like this:
+        </p>
+
+        <span class="image fit"
+          ><img
+            class="blog-centered"
+            style="width: 50%"
+            src="../images/blog_posts/gradient/Axis.png"
+            alt=""
+        /></span>
+
+        <p>
+          Combining them into a full cube (connecting them at 0) this is what we
+          get:
+        </p>
+        <span class="image fit"
+          ><img
+            class="blog-centered"
+            style="width: 25%"
+            src="../images/blog_posts/gradient/Color Wheel.png"
+            alt=""
+        /></span>
+        <div class="blog-centered blog-image-subtext">
+          <p>
+            Note: I changed out #000000 (black) for #FFFFFF (white) since it
+            looks nicer!
+          </p>
+        </div>
+
+        <p>
+          This makes it a little bit easier to imagine the math that we're going
+          to be doing to calculate a gradient. Imagine that inside this cube, we
+          select two points, now physical locations in the cube, to calculate a
+          gradient between. The literal representation of this gradient would be
+          a straight line between the points.
+        </p>
+      </section>
+      <section id="four">
+        <header class="major">
+          <h2>Calculating the Gradient</h2>
+        </header>
+        <p>
+          Let's start by choosing two random points, #264653 and #2A9D8F. Our
+          finished gradient should look something like this:
+        </p>
+
+        <span class="image fit"
+          ><img
+            class="blog-centered"
+            style="border-radius: 0"
+            src="../images/blog_posts/gradient/Gradient-Btw-Sample-Points.png"
+            alt=""
+        /></span>
+
+        <p class="blog-ungrouped-text">
+          A line between two points in 3D space is defined by:
+          <strong>\(r(t)=r_0 + tv\)</strong> where:
+        </p>
+        <div class="blog-indent">
+          <ul>
+            <li>
+              <p class="blog-ungrouped-text">
+                <strong>\(r_0\)</strong>: an initial point =
+                <strong>\((x_0, y_0, z_0)\)</strong>
+              </p>
+            </li>
+            <li>
+              <p>
+                <strong>\(v\)</strong>: direction (slope) vector =
+                <strong>\(< x-x_0, y-y_0, z-z_0 >\)</strong>
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <p>
+          Using this knowledge we can calculate the slope of the line between
+          the two points
+          <strong>\(v = < 42-38, 157-70, 143-83 > = < 4, 87, 60 > \)</strong>
+          and so:
+        </p>
+        <p class="blog-centered">
+          <strong
+            >\(r(t) = (38,70,83) + t< 4,87,60 >>\) where
+            <strong>\(0 \leq t \leq 1\)</strong></strong
+          >
+        </p>
+
+        <p class="blog-ungrouped-text">
+          Some sample output points from this equation are:
+        </p>
+        <div class="blog-indent">
+          <ul>
+            <li>264E59</li>
+            <li>26575F</li>
+            <li>276065</li>
+            <li>27686B</li>
+            <li>287171</li>
+            <li>287A77</li>
+            <li>28827D</li>
+            <li>298B83</li>
+          </ul>
+        </div>
+
+        <p>Which looks like this:</p>
+        <span class="image fit"
+          ><img
+            class="blog-centered"
+            style="border-radius: 0"
+            src="../images/blog_posts/gradient/Calculated-Grad-Btw-Sample-Points.png"
+            alt=""
+        /></span>
+
+        <p>
+          We've done it! To adjust the space between the interim steps we can
+          multiply the slope by <strong>\(1/(x+2)\)</strong> where x is how many
+          steps we'd like.
+        </p>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <div class="inner">
+        <ul class="icons">
+          <li>
+            <a href="https://github.com/koyas" class="icon brands fa-github"
+              ><span class="label">Github</span></a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/koya-saito-bb9384173/"
+              class="icon brands fa-linkedin"
+              ><span class="label">LinkedIn</span></a
+            >
+          </li>
+        </ul>
+        <ul class="copyright">
+          <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.poptrox.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script
+      type="text/javascript"
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+    ></script>
+  </body>
+</html>
