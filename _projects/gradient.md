@@ -5,6 +5,8 @@ image: assets/gradient.png
 description: For a project that I'm working on, I'd like to add a color gradient to align with the stylistic choices of the product.
 ---
 
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
 # Calculating a Color Gradient
 
 > Okay, but *how* blue is the sky?
@@ -34,3 +36,50 @@ As it turns out, [Hexadecimal is actually the same thing](https://en.wikipedia.o
 Denary	     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15
 Hexadecimal	 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A  | B  | C  | D  | E  | F
 
+---
+
+## Visualizing RGB as a 3D Space
+
+So, we have red, green and blue on linear scales from 0 to 255. What does this mean? This means that we can represent the colors in three-dimensional space. Don't worry, I'll draw it. But first, let's understand our axis. We have three, Red, Green, and Blue. The sides of our three dimensional space will look like this:
+<br>
+![Three Axis](../assets/blog/gradient/Axis.png)
+<br>
+Combining them into a full cube (connecting them at 0) this is what we get:
+
+![Cube](../assets/blog/gradient/Color%20Wheel.png)
+<center><i>Note: I changed out #000000 (black) for #FFFFFF (white) since it looks nicer!</i></center>
+
+This makes it a little bit easier to imagine the math that we're going to be doing to calculate a gradient. Imagine that inside this cube, we select two points, now physical locations in the cube, to calculate a gradient between. The literal representation of this gradient would be a straight line between the points.
+
+---
+
+## Calculating the Gradient
+
+Let's start by choosing two random points, #264653 and #2A9D8F. Our finished gradient should look something like this:
+<br>
+![sample points gradient](../assets/blog/gradient/Gradient-Btw-Sample-Points.png)
+<br>
+A line between two points in 3D space is defined by: $r(t) = r_0 + tv$ where:
+- $$r_0$$: an initial point=$$(x_0, y_0, z_0)$$
+- $$v$$: direction (slope) vector = $$<x-x_0, y-y_0, z-z_0>$$
+
+Using this knowledge we can calculate the slope of the line between the two points
+$$v=<42-38, 157-70, 143-83>=<4,87,60>$$ and so:
+<br>
+<center> $$r(t)=(38,70,83)+t<4,87,60>$$ where $$0\leq t\leq1$$ </center>
+Some sample output points from this equation are:
+- 264E59
+- 26575F
+- 276065
+- 27686B
+- 287171
+- 287A77
+- 28827D
+- 298B83
+<br>
+
+Which looks like this:
+
+![sample points](../assets/blog/gradient/Calculated-Grad-Btw-Sample-Points.png)
+
+We've done it! To adjust the space between the interim steps we can multiply the slope by $$1/(x+2)$$ where x is how many steps we'd like.

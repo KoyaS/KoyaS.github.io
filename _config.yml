@@ -3,7 +3,7 @@ title               : Koya
 description         : ""
 baseurl             : ""
 repository          : KoyaS/KoyaS.github.io
-remote_theme        : Avery2/portfolYOU
+remote_theme        : KoyaS/portfolYOU
 
 
 ### Plugins ###
