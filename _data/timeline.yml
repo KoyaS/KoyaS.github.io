@@ -1,14 +1,34 @@
 - title: Student, Michigan State University
   from: 2019
-  to: May 2023 (Expected)
-  description: Bachelor of Science in Computer Science
+  to: Dec 2023 (Expected)
+  description: Bachelor of Science in Computational Data Science
 
-- title: Systems Intern, Fraunhofer USA
-  from: Jam 2020
+- title: Junior Data Analytics Coordinator, IZEA Worldwide Inc.
+  from: June 2022
   to: Present
-  description: Developing software and maintaining laboratory equipment for coatings and diamond technologies.
+  description: Joined analytics team at 1 team member, through presentations and work grew team to 16. Facilitated production of datasets by reverse engineering websites network calls to increase performance of supervised, unsupervised and statistical models. 
+
+- title: Member, AI Club
+  from: Aug 2022
+  to: Present
+  description: Casual exploration of machine learning/AI models through fun projects. Was assigned a team to develop a project with and built a prediction model which evaluated the health of infants in the womb using Keras and TensorFlow. Project won 3rd place at the CodeGreen hackathon.
+
+- title: Co-President, Michigan State Entrepreneurship Association	
+  from: Jan 2020
+  to: Jul 2023
+  description: As Co-President, created and implemented heirarchical board structure which planned and executed meetings over the course of the 21-22 school year. Brought 12 student entrepreneurs on an expenses-paid trip to California to visit accellerators and startups.
+
+- title: Lab Assistant, Fraunhofer USA
+  from: Jan 2020
+  to: May 2022
+  description: Developing software and maintaining laboratory equipment for coatings and diamond technologies. Designed and implemented Arduino-based circuit which performs electro-impedance spectroscopy through cyclic voltammetry and can potentially be used as a cheap handheld device to combat COVID-19 in the future.
 
 - title: Research Intern, PIDC
   from: Sep 2018
   to: Feb 2019
-  description: Pacific Industrial Development Corporation Researched metal oxide powder to create an abrasive lens polish for name brand retailer. Managed polish abrasion experiments independently in a lab setting.
+  description: Researched metal oxide powder to create an abrasive lens polish for name brand retailer. Managed polish abrasion experiments independently in a lab setting.
+
+- title: Intern, University of Michigan Burns Lab
+  from: Jul 2018
+  to: Aug 2018
+  description: During highschool, worked under an MIT graduate student alongside a classmate to evaluate the performance of microfluidic flowrate sensors. Noticed an inefficiency in electricity consumption and developed an algorithm which reduced this consumption by %80.

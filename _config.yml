@@ -4,7 +4,10 @@ description         : ""
 baseurl             : ""
 repository          : KoyaS/KoyaS.github.io
 remote_theme        : KoyaS/portfolYOU
-
+show_all_remote_repos: false
+social_in_header    : true
+resume_in_timeline  : false
+remote_resume_link  : https://koyas.github.io/KoyaS/Saito%2C%20Koya%20Resume%202022.pdf
 
 ### Plugins ###
 plugins:
@@ -46,6 +49,7 @@ author:
 # vimeo             : your_username
 # youtube           : your_channel_name
 # keybase           : your_username
+  resume            : https://koyas.github.io/KoyaS/Saito%2C%20Koya%20Resume%202022.pdf
 
 
 ### Posts ###
